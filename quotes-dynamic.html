@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romantic Quotes - Big Love Experience 💕</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1a0033 0%, #2d0052 20%, #4a0080 40%, #2d0052 60%, #1a0033 80%, #000000 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientShift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .animated-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 0; pointer-events: none;
+        }
+
+        .gradient-orb {
+            position: absolute; border-radius: 50%;
+            filter: blur(80px); opacity: 0.3;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-1 { width: 400px; height: 400px;
+            background: radial-gradient(circle, #ff1493, transparent);
+            top: -10%; left: -10%; animation-delay: 0s;
+        }
+
+        .orb-2 { width: 350px; height: 350px;
+            background: radial-gradient(circle, #9d00ff, transparent);
+            bottom: -10%; right: -10%; animation-delay: 5s;
+        }
+
+        .orb-3 { width: 300px; height: 300px;
+            background: radial-gradient(circle, #ff69b4, transparent);
+            top: 50%; left: 50%; animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(50px, -50px) scale(1.1); }
+            66% { transform: translate(-50px, 50px) scale(0.9); }
+        }
+
+        .quote-container {
+            position: relative; z-index: 10;
+            max-width: 900px; width: 90%; padding: 40px;
+            text-align: center;
+        }
+
+        .quote-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(255, 105, 180, 0.3);
+            border-radius: 30px; padding: 60px 40px;
+            box-shadow: 0 20px 60px rgba(255, 20, 147, 0.3),
+                        inset 0 0 60px rgba(255, 105, 180, 0.1);
+            position: relative; overflow: hidden;
+            animation: cardGlow 3s ease-in-out infinite;
+            transition: transform 0.3s ease;
+        }
+
+        .quote-card:hover { transform: translateY(-5px); }
+
+        @keyframes cardGlow {
+            0%, 100% { box-shadow: 0 20px 60px rgba(255, 20, 147, 0.3),
+                                    inset 0 0 60px rgba(255, 105, 180, 0.1); }
+            50% { box-shadow: 0 20px 80px rgba(255, 20, 147, 0.5),
+                              inset 0 0 80px rgba(255, 105, 180, 0.2); }
+        }
+
+        .quote-type {
+            display: inline-block; padding: 10px 25px;
+            background: linear-gradient(135deg, #ff1493, #9d00ff);
+            border-radius: 25px; font-size: 0.95rem;
+            font-weight: 600; text-transform: uppercase;
+            letter-spacing: 1.5px; margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(255, 20, 147, 0.4);
+        }
+
+        .quote-text {
+            font-size: 2rem; line-height: 1.6;
+            color: #fff; margin: 30px 0;
+            font-weight: 300; min-height: 120px;
+            text-shadow: 0 2px 20px rgba(255, 105, 180, 0.5);
+            white-space: pre-line;
+        }
+
+        .language-toggle {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .lang-btn {
+            padding: 10px 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            background: rgba(0, 0, 0, 0.3);
+            color: rgba(255, 255, 255, 0.6);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .lang-btn:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.5);
+            color: rgba(255, 255, 255, 0.9);
+            transform: translateY(-2px);
+        }
+
+        .lang-btn.active {
+            background: linear-gradient(135deg, #ff6ec4, #7873f5);
+            border-color: #ff6ec4;
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 110, 196, 0.4);
+        }
+
+        .lang-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* Voice Button Styles */
+        .voice-btn {
+            margin-top: 25px;
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 25px;
+            color: white;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .voice-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .voice-btn:active {
+            transform: translateY(0);
+        }
+
+        .voice-btn.speaking {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .voice-icon {
+            font-size: 1.2rem;
+            animation: none;
+        }
+
+        .voice-btn.speaking .voice-icon {
+            animation: wave 0.6s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+
+        .quote-translation {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-style: italic; margin-top: 20px;
+            white-space: pre-line;
+        }
+        
+        .quote-meta {
+            font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.6);
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .quote-number {
+            position: absolute; top: 20px; right: 30px;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 600;
+        }
+
+        .controls {
+            margin-top: 40px; display: flex;
+            gap: 20px; justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 16px 40px; font-size: 1rem;
+            font-weight: 600; border: none;
+            border-radius: 50px; cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            position: relative; overflow: hidden;
+        }
+
+        .btn:active { transform: scale(0.95); }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff1493, #ff69b4);
+            color: white;
+            box-shadow: 0 8px 25px rgba(255, 20, 147, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(255, 20, 147, 0.6);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #9d00ff, #c77dff);
+            color: white;
+            box-shadow: 0 8px 25px rgba(157, 0, 255, 0.4);
+        }
+
+        .btn-secondary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 35px rgba(157, 0, 255, 0.6);
+        }
+
+        .btn-home {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-home:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-3px);
+        }
+
+        .loading {
+            display: none;
+            position: fixed; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
+
+        .loading.active { display: block; }
+
+        .spinner {
+            width: 60px; height: 60px;
+            border: 4px solid rgba(255, 255, 255, 0.2);
+            border-top: 4px solid #ff1493;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .floating-hearts {
+            position: fixed; width: 100%; height: 100%;
+            pointer-events: none; z-index: 5;
+        }
+
+        .heart {
+            position: absolute; font-size: 2rem;
+            opacity: 0;
+            animation: floatHeart 6s ease-in infinite;
+        }
+
+        @keyframes floatHeart {
+            0% { transform: translateY(100vh) scale(0) rotate(0deg); opacity: 0; }
+            50% { opacity: 0.8; transform: translateY(50vh) scale(1) rotate(180deg); }
+            100% { transform: translateY(-20vh) scale(0) rotate(360deg); opacity: 0; }
+        }
+
+        .stats {
+            margin-top: 30px; font-size: 0.95rem;
+            color: rgba(255, 255, 255, 0.6);
+            padding: 15px; background: rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+
+        @media (max-width: 768px) {
+            .quote-text { font-size: 1.5rem; }
+            .quote-translation { font-size: 1.1rem; }
+            .quote-card { padding: 40px 25px; }
+            .controls { flex-direction: column; }
+            .btn { width: 100%; max-width: 300px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg">
+        <div class="gradient-orb orb-1"></div>
+        <div class="gradient-orb orb-2"></div>
+        <div class="gradient-orb orb-3"></div>
+    </div>
+
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <div class="loading" id="loading">
+        <div class="spinner"></div>
+    </div>
+
+    <div class="quote-container">
+        <div class="quote-card">
+            <div class="quote-number" id="quoteNumber">Quote #1 of 3000</div>
+            <div class="quote-type" id="quoteType">❤️ Loading...</div>
+            
+            <!-- Language Toggle Buttons -->
+            <div class="language-toggle">
+                <button class="lang-btn active" id="langID" title="Bahasa Indonesia">🇮🇩 ID</button>
+                <button class="lang-btn" id="langEN" title="English Translation">🇬🇧 EN</button>
+            </div>
+            
+            <div class="quote-text" id="quoteText">Loading romantic quote...</div>
+            
+            <!-- Voice Button -->
+            <button class="voice-btn" id="voiceBtn" title="Listen to this quote">
+                <span class="voice-icon">🔊</span>
+                <span class="voice-text">Read Aloud</span>
+            </button>
+        </div>
+
+        <div class="controls">
+            <button class="btn btn-primary" id="nextBtn">Next Quote 💕</button>
+            <button class="btn btn-secondary" id="randomBtn">Random ✨</button>
+            <button class="btn btn-home" id="homeBtn">🏠 Home</button>
+        </div>
+
+        <div class="stats" id="stats">
+            Loaded: 0 quotes | Cached: 0 chunks | Memory: 0 KB
+        </div>
+    </div>
+
+    <audio id="quoteMusic" loop>
+        <source src="allquote.mp3" type="audio/mpeg">
+    </audio>
+
+    <script src="quotes/quotes-meta.js"></script>
+    
+    <script>
+        function createFloatingHearts() {
+            const container = document.getElementById('floatingHearts');
+            const hearts = ['💖', '💕', '💗', '💝', '💓', '💘'];
+            
+            setInterval(() => {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDelay = Math.random() * 2 + 's';
+                heart.style.animationDuration = (Math.random() * 3 + 4) + 's';
+                container.appendChild(heart);
+                setTimeout(() => heart.remove(), 8000);
+            }, 400);
+        }
+        
+        createFloatingHearts();
+
+        let currentQuoteId = 1;
+        const totalQuotes = 1200;
+        let currentLanguage = 'id'; // 'id' or 'en'
+        let currentQuoteData = null; // Store current quote data
+        let speechSynthesis = window.speechSynthesis;
+        let currentUtterance = null;
+
+        const elements = {
+            quoteNumber: document.getElementById('quoteNumber'),
+            quoteType: document.getElementById('quoteType'),
+            quoteText: document.getElementById('quoteText'),
+            langID: document.getElementById('langID'),
+            langEN: document.getElementById('langEN'),
+            voiceBtn: document.getElementById('voiceBtn'),
+            stats: document.getElementById('stats'),
+            loading: document.getElementById('loading'),
+            nextBtn: document.getElementById('nextBtn'),
+            randomBtn: document.getElementById('randomBtn'),
+            homeBtn: document.getElementById('homeBtn')
+        };
+
+        const typeEmojis = {
+            'gombalan': '❤️ Gombalan'
+        };
+
+        // Switch language function
+        function switchLanguage(lang) {
+            if (!currentQuoteData) return;
+            
+            // Stop any ongoing speech
+            stopSpeech();
+            
+            currentLanguage = lang;
+            
+            // Update button active states
+            elements.langID.classList.toggle('active', lang === 'id');
+            elements.langEN.classList.toggle('active', lang === 'en');
+            
+            // Display text in selected language
+            const text = lang === 'id' ? currentQuoteData.id : currentQuoteData.en;
+            const cleanText = (text || '').replace(/\\n/g, '\n');
+            elements.quoteText.textContent = cleanText;
+        }
+
+        // Text-to-Speech function with soft voice and proper accent
+        function speakQuote() {
+            if (!currentQuoteData) return;
+            
+            // If already speaking, stop it
+            if (speechSynthesis.speaking) {
+                stopSpeech();
+                return;
+            }
+            
+            // Get current text
+            const text = currentLanguage === 'id' ? currentQuoteData.id : currentQuoteData.en;
+            const cleanText = text.replace(/\\n/g, ' ');
+            
+            // Create speech utterance
+            currentUtterance = new SpeechSynthesisUtterance(cleanText);
+            
+            // Configure voice settings
+            currentUtterance.rate = 0.85; // Slightly slower for romantic feel
+            currentUtterance.pitch = 1.1; // Slightly higher pitch for soft voice
+            currentUtterance.volume = 1.0;
+            
+            // Get available voices
+            const voices = speechSynthesis.getVoices();
+            
+            // Select appropriate voice based on language
+            let selectedVoice = null;
+            if (currentLanguage === 'id') {
+                // Try to find Indonesian voice
+                selectedVoice = voices.find(voice => 
+                    voice.lang.includes('id-ID') || 
+                    voice.lang.includes('id')
+                );
+                // Fallback to female English voice with softer tone
+                if (!selectedVoice) {
+                    selectedVoice = voices.find(voice => 
+                        voice.name.includes('Female') || 
+                        voice.name.includes('Zira') ||
+                        voice.name.includes('Google US English Female')
+                    );
+                }
+            } else {
+                // For English, prefer female voice with soft tone
+                selectedVoice = voices.find(voice => 
+                    (voice.lang.includes('en-US') || voice.lang.includes('en-GB')) &&
+                    (voice.name.includes('Female') || 
+                     voice.name.includes('Zira') ||
+                     voice.name.includes('Google UK English Female') ||
+                     voice.name.includes('Samantha'))
+                );
+            }
+            
+            if (selectedVoice) {
+                currentUtterance.voice = selectedVoice;
+            }
+            
+            // Event handlers
+            currentUtterance.onstart = () => {
+                elements.voiceBtn.classList.add('speaking');
+                elements.voiceBtn.querySelector('.voice-text').textContent = 'Speaking...';
+                elements.voiceBtn.querySelector('.voice-icon').textContent = '🎤';
+            };
+            
+            currentUtterance.onend = () => {
+                elements.voiceBtn.classList.remove('speaking');
+                elements.voiceBtn.querySelector('.voice-text').textContent = 'Read Aloud';
+                elements.voiceBtn.querySelector('.voice-icon').textContent = '🔊';
+            };
+            
+            currentUtterance.onerror = (e) => {
+                console.error('Speech error:', e);
+                stopSpeech();
+            };
+            
+            // Speak!
+            speechSynthesis.speak(currentUtterance);
+        }
+        
+        function stopSpeech() {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.cancel();
+            }
+            elements.voiceBtn.classList.remove('speaking');
+            elements.voiceBtn.querySelector('.voice-text').textContent = 'Read Aloud';
+            elements.voiceBtn.querySelector('.voice-icon').textContent = '🔊';
+        }
+
+        async function displayQuote(quoteId) {
+            try {
+                elements.loading.classList.add('active');
+                const quote = await QuotesManager.getQuoteById(quoteId);
+                
+                if (quote) {
+                    // Check if Indonesian text has placeholders - if yes, skip to next quote
+                    if (quote.id && (quote.id.includes('{') || quote.id.includes('}'))) {
+                        console.log('Skipping quote with placeholders:', quoteId);
+                        // Auto-load next quote
+                        displayQuote(quoteId < totalQuotes ? quoteId + 1 : 1);
+                        return;
+                    }
+                    
+                    currentQuoteId = quoteId;
+                    currentQuoteData = quote; // Store quote data
+                    
+                    elements.quoteNumber.textContent = `Quote #${quoteId} of ${totalQuotes}`;
+                    elements.quoteType.textContent = typeEmojis[quote.type] || quote.type;
+                    
+                    // Check if English translation is valid
+                    const hasValidEN = quote.en && 
+                                      !quote.en.includes('{') && 
+                                      !quote.en.includes('}') &&
+                                      quote.en.trim() !== '';
+                    
+                    // Enable/disable EN button based on translation quality
+                    elements.langEN.disabled = !hasValidEN;
+                    
+                    // If EN button disabled and user is on EN, switch to ID
+                    if (!hasValidEN && currentLanguage === 'en') {
+                        currentLanguage = 'id';
+                        elements.langID.classList.add('active');
+                        elements.langEN.classList.remove('active');
+                    }
+                    
+                    // Display text in current language
+                    const text = currentLanguage === 'id' ? quote.id : quote.en;
+                    const cleanText = (text || quote.id).replace(/\\n/g, '\n');
+                    elements.quoteText.textContent = cleanText;
+                    
+                    // Stop any ongoing speech when changing quote
+                    stopSpeech();
+                    
+                    updateStats();
+                }
+                elements.loading.classList.remove('active');
+            } catch (error) {
+                console.error('Error:', error);
+                elements.quoteText.textContent = 'Error loading quote. Try again!';
+                elements.loading.classList.remove('active');
+            }
+        }
+
+        async function displayRandomQuote() {
+            try {
+                // Stop speech before loading new quote
+                stopSpeech();
+                elements.loading.classList.add('active');
+                const randomId = Math.floor(Math.random() * totalQuotes) + 1;
+                const quote = await QuotesManager.getQuoteById(randomId);
+                
+                if (quote) {
+                    // Check if Indonesian text has placeholders - if yes, get another random quote
+                    if (quote.id && (quote.id.includes('{') || quote.id.includes('}'))) {
+                        console.log('Skipping quote with placeholders:', randomId);
+                        // Try another random quote
+                        displayRandomQuote();
+                        return;
+                    }
+                    
+                    currentQuoteId = randomId;
+                    currentQuoteData = quote; // Store quote data
+                    
+                    elements.quoteNumber.textContent = `Quote #${randomId} of ${totalQuotes}`;
+                    elements.quoteType.textContent = typeEmojis[quote.type] || quote.type;
+                    
+                    // Check if English translation is valid
+                    const hasValidEN = quote.en && 
+                                      !quote.en.includes('{') && 
+                                      !quote.en.includes('}') &&
+                                      quote.en.trim() !== '';
+                    
+                    // Enable/disable EN button based on translation quality
+                    elements.langEN.disabled = !hasValidEN;
+                    
+                    // If EN button disabled and user is on EN, switch to ID
+                    if (!hasValidEN && currentLanguage === 'en') {
+                        currentLanguage = 'id';
+                        elements.langID.classList.add('active');
+                        elements.langEN.classList.remove('active');
+                    }
+                    
+                    // Display text in current language
+                    const text = currentLanguage === 'id' ? quote.id : quote.en;
+                    const cleanText = (text || quote.id).replace(/\\n/g, '\n');
+                    elements.quoteText.textContent = cleanText;
+                    
+                    updateStats();
+                }
+                elements.loading.classList.remove('active');
+            } catch (error) {
+                console.error('Error:', error);
+                elements.loading.classList.remove('active');
+            }
+        }
+
+        function updateStats() {
+            const stats = QuotesManager.getStats();
+            const memoryKB = Math.round(stats.cachedChunks * 172);
+            elements.stats.textContent = `Loaded: ${stats.loadedQuotes} quotes | Cached: ${stats.cachedChunks} chunks | Memory: ${memoryKB} KB`;
+        }
+
+        function nextQuote() {
+            currentQuoteId++;
+            if (currentQuoteId > totalQuotes) currentQuoteId = 1;
+            displayQuote(currentQuoteId);
+        }
+
+        elements.nextBtn.addEventListener('click', nextQuote);
+        elements.randomBtn.addEventListener('click', displayRandomQuote);
+        elements.homeBtn.addEventListener('click', () => window.location.href = 'index.html');
+        
+        // Language toggle button event listeners
+        elements.langID.addEventListener('click', () => switchLanguage('id'));
+        elements.langEN.addEventListener('click', () => switchLanguage('en'));
+        
+        // Voice button event listener
+        elements.voiceBtn.addEventListener('click', speakQuote);
+        
+        // Load voices when available (needed for some browsers)
+        if (speechSynthesis.onvoiceschanged !== undefined) {
+            speechSynthesis.onvoiceschanged = () => {
+                // Voices loaded, ready to use
+            };
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextQuote();
+            } else if (e.key === 'r' || e.key === 'R') {
+                e.preventDefault();
+                displayRandomQuote();
+            } else if (e.key === 'Escape' || e.key === 'h' || e.key === 'H') {
+                window.location.href = 'index.html';
+            }
+        });
+
+        const quoteMusic = document.getElementById('quoteMusic');
+        document.body.addEventListener('click', function enableMusic() {
+            quoteMusic.play().catch(e => console.log('Music autoplay blocked'));
+        }, { once: true });
+
+        console.log('🚀 Initializing Big Love Experience - Quotes System');
+        console.log('📚 Total Quotes: 3,000');
+        console.log('🎯 Lazy Loading: Enabled');
+        displayRandomQuote();
+    </script>
+</body>
+</html>
